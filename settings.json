@@ -7,7 +7,7 @@
   },
   "server": {
     "ip": "ardayms.aternos.me",
-    "port": 46610,
+    "port": 25565,
     "version": "1.21.4",
     "try-creative": false
   },
