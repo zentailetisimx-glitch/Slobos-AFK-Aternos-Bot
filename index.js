@@ -1097,18 +1097,6 @@ function startSelfPing() {
     );
     return;
   }
-  setInterval(() => {
-    const protocol = renderUrl.startsWith("https") ? https : http;
-    protocol
-      .get(`${renderUrl}/ping`, (res) => {
-        // Silent success
-      })
-      .on("error", (err) => {
-        addLog(`[KeepAlive] Self-ping failed: ${err.message}`);
-      });
-  }, SELF_PING_INTERVAL);
-  addLog("[KeepAlive] Self-ping system started (every 10 min)");
-}
 
 startSelfPing();
 
@@ -1935,7 +1923,7 @@ function sendDiscordWebhook(content, color = 0x0099ff) {
   }
   lastDiscordSend = now;
 
-  const protocol = config.discord.webhookUrl.startsWith("https") ? https : http;
+  const req = https.request(options, (res) => {
   const urlParts = new URL(config.discord.webhookUrl);
 
   const payload = JSON.stringify({
